@@ -1,5 +1,6 @@
 package utilities;
 
+import entities.Match;
 import entities.Table;
 
 public class Genetic {
@@ -8,6 +9,7 @@ public class Genetic {
     }
 
     public static Table mutate(Table table) {
+
         return null;
     }
 
@@ -15,8 +17,12 @@ public class Genetic {
         return null;
     }
 
-    
+    public static Match mutateMatch(Match match) {
+        return match;
+    }    
 }
+
+
 
 
 
