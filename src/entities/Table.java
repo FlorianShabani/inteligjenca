@@ -7,7 +7,7 @@ public class Table {
 
     ArrayList<Match> matches = new ArrayList<>();
     
-    public Match[] geMatches() {
+    public Match[] getMatches() {
         return (Match[]) matches.toArray();
     }
 

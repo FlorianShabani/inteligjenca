@@ -9,8 +9,11 @@ public class Match {
     int endTime;
     int week;
 
-    public Match(int startTime, int endTime, int week) {
 
+    public Match(int startTime, int week) {
+        this.startTime = startTime;
+        this.week = week;
+        this.endTime = startTime + LEN;
     }
 
     public int getStartTime() {
