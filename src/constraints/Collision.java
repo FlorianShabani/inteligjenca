@@ -6,13 +6,12 @@ public class Collision extends HardConstraint {
 
     @Override
     public boolean applyConstraint(Match[] matches) {
-        boolean collision = false;
         for (Match m1 : matches) {
             for (Match m2 : matches) {
-                if(collide(m1, m2)) collision = true;
+                if(collide(m1, m2)) return false;
             }
         }
-        return collision;
+        return true;
     }
 
     public static boolean collide(Match m1, Match m2) {
