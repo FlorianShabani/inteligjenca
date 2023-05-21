@@ -17,7 +17,12 @@ public class Genetic {
         return null;
     }
 
-    public static Match mutateMatch(Match match) {
+    public static Match mutateMatch(Match m) {
+        Match match = m.clone();
+        match.setStartTime(
+            ((match.getStartTime() + (int)(Math.random() * 1440)) % 1440)
+        );
+
         return match;
     }    
 }

@@ -1,6 +1,6 @@
 package entities;
 
-public class Match {
+public class Match{
     // TIME AS INT 00_00 - 1440 (1h = 60)
 
     public static final int LEN = 180; // Per arsye te TV (pregame, postgame interviews etc...)
@@ -29,4 +29,7 @@ public class Match {
         return endTime;
     }
 
+    public Match clone() {
+        return new Match(this.startTime, this.week);
+    }
 }
