@@ -1,17 +1,17 @@
 package utilities;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import constraints.HardConstraint;
 import constraints.SoftConstraint;
 import entities.Match;
 import entities.Population;
 import entities.Table;
+import entities.Team;
 
 public class Genetic {
 
-    int weeks;
+    int days;
 
     ArrayList<HardConstraint> hardConstraints = new ArrayList<>();
     ArrayList<SoftConstraint> softConstraints = new ArrayList<>();
@@ -21,17 +21,39 @@ public class Genetic {
     int mutateMatchCount = 1;
     int mutateTableCount = 1;
 
-    public Genetic(int weeks) {
-        this.weeks = weeks;
+    public Genetic(int days) {
+        this.days = days;
     }
 
-    public Table crossOver(Table t1, Table t2) {
+    public Table[] crossOver(Table t1, Table t2) {
+        t1.sortMatches();
+        t2.sortMatches();
         Match[] m1 = t1.getMatches();
         Match[] m2 = t2.getMatches();
 
-        
+        int n = m1.length;
+        for (int i = 0; i < 10; i++) {
+            int k = (int) (Math.random() * n);
+            Match[] new1 = new Match[n];
+            Match[] new2 = new Match[n];
 
-        return null;
+            for (int j = 0; j < k; j++) {
+                new1[j] = m1[j];
+                new2[j] = m2[j];
+            }
+            for (int j = k; j < n; j++) {
+                new2[j] = m1[j];
+                new1[j] = m2[j];
+            }
+
+            if (!checkHardConstraints(new1) || !checkHardConstraints(new2)) {
+                continue;
+            }
+            m1 = new1;
+            m2 = new2;
+        }
+
+        return new Table[] { new Table(m1, t1), new Table(m2, t2) };
     }
 
     public boolean checkHardConstraints(Match[] matches) {
@@ -42,9 +64,9 @@ public class Genetic {
         return true;
     }
 
-    public Table mutate(Table table) {
+    public void mutate(Table table) {
         // TODO Simulated Annealing
-        for (int i = 0; i < mutateMatchCount; i++) {
+        v: for (int i = 0; i < mutateMatchCount; i++) {
             for (int j = 0; j < 10; j++) {
                 Match[] matches = table.getMatches();
                 int randomIndex = (int) (Math.random() * matches.length);
@@ -56,12 +78,10 @@ public class Genetic {
                 if (!checkHardConstraints(matches)) {
                     matches[randomIndex] = old;
                     continue;
-                } else {
-                    table.matches = new ArrayList<>(Arrays.asList(matches));
-                }
+                } else
+                    continue v;
             }
         }
-        return null;
     }
 
     public void evaluate(Table table) {
@@ -75,8 +95,8 @@ public class Genetic {
         match.setStartTime(
                 ((match.getStartTime() + (int) (Math.random() * 1440)) % 1440));
 
-        match.setWeek(
-                ((match.getWeek() + (int) (Math.random() * weeks)) % weeks));
+        match.setDay(
+                ((match.getDay() + (int) (Math.random() * days)) % days));
 
         return match;
     }

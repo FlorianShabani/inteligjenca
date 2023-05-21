@@ -1,15 +1,18 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Table {
     public double fitness;
 
-    ArrayList<Team> teams = new ArrayList<>();
+    public ArrayList<Team> teams = new ArrayList<>();
     public ArrayList<Match> matches = new ArrayList<>();
-    
-    public Table() {
 
+    public Table(Match[] matches, Table table) {
+        this.matches = new ArrayList<>(Arrays.asList(matches));
+        this.teams = table.teams;
     }
 
     public Match[] getMatches() {
@@ -24,7 +27,19 @@ public class Table {
         return fitness;
     }
 
-    public Match getRandomMatch () {
-        return matches.get((int)(Math.random() * matches.size()));
+    public Match getRandomMatch() {
+        return matches.get((int) (Math.random() * matches.size()));
+    }
+
+    public void sortMatches() {
+        Collections.sort(matches, (m1, m2) -> {
+            if (m1.day < m2.day)
+                return -1;
+            if (m1.day > m2.day)
+                return 1;
+            if (m1.getStartTime() < m2.getStartTime())
+                return -1;
+            return 0;
+        });
     }
 }

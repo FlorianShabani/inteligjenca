@@ -7,12 +7,12 @@ public class Match{
 
     int startTime;
     int endTime;
-    int week;
+    int day;
 
 
-    public Match(int startTime, int week) {
+    public Match(int startTime, int day) {
         this.startTime = startTime;
-        this.week = week;
+        this.day = day;
         this.endTime = startTime + LEN;
     }
 
@@ -28,16 +28,16 @@ public class Match{
     public int getEndTime() {
         return endTime;
     }
-
-    public int getWeek() {
-        return week;
+    
+    public int getDay() {
+        return day;
     }
 
-    public void setWeek(int week) {
-        this.week = week;
+    public void setDay(int day) {
+        this.day = day;
     }
 
     public Match clone() {
-        return new Match(this.startTime, this.week);
+        return new Match(this.startTime, this.day);
     }
 }
