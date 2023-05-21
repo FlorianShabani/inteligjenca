@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import constraints.HardConstraint;
 import constraints.SoftConstraint;
 import entities.Match;
-import entities.Population;
 import entities.Table;
-import entities.Team;
 
 public class Genetic {
 
@@ -16,10 +14,7 @@ public class Genetic {
     ArrayList<HardConstraint> hardConstraints = new ArrayList<>();
     ArrayList<SoftConstraint> softConstraints = new ArrayList<>();
 
-    Population population = new Population();
-
     int mutateMatchCount = 1;
-    int mutateTableCount = 1;
 
     public Genetic(int days) {
         this.days = days;

@@ -7,6 +7,10 @@ public class Population {
     double fitnessPool;
 
 
+    public void evolve() {
+        
+    }
+
     public void addTable(Table table) {
         tables.add(table);
     }
@@ -22,6 +26,10 @@ public class Population {
         }
     }
 
+    public Table getRandomTable() {
+        return tables.get((int)(Math.random() * tables.size()));
+    }
+
     public Table getTable() {
         double k = (Math.random() * fitnessPool);
         double sum = 0;
@@ -34,4 +42,6 @@ public class Population {
         System.out.println("Check");
         return tables.get(tables.size() - 1);
     }
+
+
 }
