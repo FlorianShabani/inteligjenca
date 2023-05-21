@@ -29,6 +29,14 @@ public class Match{
         return endTime;
     }
 
+    public int getWeek() {
+        return week;
+    }
+
+    public void setWeek(int week) {
+        this.week = week;
+    }
+
     public Match clone() {
         return new Match(this.startTime, this.week);
     }

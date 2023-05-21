@@ -9,7 +9,7 @@ public class Table {
     ArrayList<Match> matches = new ArrayList<>();
     
     public Table() {
-        
+
     }
 
     public Match[] getMatches() {
