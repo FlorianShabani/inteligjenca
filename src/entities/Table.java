@@ -15,8 +15,21 @@ public class Table {
         this.teams = table.teams;
     }
 
+    public Table(Match[] matches, ArrayList<Team> teams) {
+        this.matches = new ArrayList<>(Arrays.asList(matches));
+        this.teams = teams;
+    }
+
+    public void setMatch(Match match, int i) {
+        matches.set(i, match);
+    }
+
     public Match[] getMatches() {
-        return (Match[]) matches.toArray();
+        Match[] res = new Match[matches.size()];
+        for(int i = 0; i < res.length; i++) {
+            res[i] = matches.get(i);
+        }
+        return  res;
     }
 
     public void applyFitness(Double fitness) {
@@ -41,5 +54,21 @@ public class Table {
                 return -1;
             return 0;
         });
+    }
+    @Override
+    public String toString() {
+        String s = "";
+        for(Match m  : matches) {
+            s += m.startTime + " " + m.endTime + " " + m.day + "|";
+        }
+        return s;
+    }
+
+    public void generateMatches() {
+        for(int i = 0; i < teams.size(); i++) {
+            for(int j = i; j < teams.size(); j++) {
+
+            }
+        }   
     }
 }

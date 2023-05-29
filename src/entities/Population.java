@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import utilities.Genetic;
 
 public class Population {
-    ArrayList<Table> tables = new ArrayList<Table>();
+    public ArrayList<Table> tables = new ArrayList<Table>();
     double fitnessPool;
-    Genetic g;
-    
+    public Genetic g;
+
     public Population() {
         g = new Genetic(100);
         for(Table t : tables) {

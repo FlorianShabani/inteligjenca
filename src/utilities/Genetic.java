@@ -66,12 +66,14 @@ public class Genetic {
                 Match mut = mutateMatch(matches[randomIndex]);
                 Match old = matches[randomIndex];
 
-                matches[randomIndex] = mut;
+                table.setMatch(mut, randomIndex);
+
                 if (!checkHardConstraints(matches)) {
-                    matches[randomIndex] = old;
+                    table.setMatch(old, randomIndex);
                     continue;
-                } else
+                } else {
                     continue v;
+                }
             }
         }
     }

@@ -8,12 +8,21 @@ public class Match{
     int startTime;
     int endTime;
     int day;
+    Team t1, t2;
 
 
     public Match(int startTime, int day) {
         this.startTime = startTime;
         this.day = day;
         this.endTime = startTime + LEN;
+    }
+
+    public Match(int startTime, int day, Team t1, Team t2) {
+        this.startTime = startTime;
+        this.day = day;
+        this.endTime = startTime + LEN;
+        this.t1 = t1;
+        this.t2 = t2;
     }
 
     public int getStartTime() {
@@ -39,5 +48,11 @@ public class Match{
 
     public Match clone() {
         return new Match(this.startTime, this.day);
+    }
+
+    @Override
+    public String toString() {
+        return "Match [startTime=" + startTime + ", endTime=" + endTime + ", day=" + day + ", t1=" + t1 + ", t2=" + t2
+                + "]";
     }
 }
