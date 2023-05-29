@@ -15,12 +15,13 @@ public class Genetic {
     ArrayList<SoftConstraint> softConstraints = new ArrayList<>();
 
     int mutateMatchCount = 1;
+    double mutateStrength = 1;
 
     public Genetic(int days) {
         this.days = days;
     }
 
-    public Table[] crossOver(Table t1, Table t2) {
+    public Table crossOver(Table t1, Table t2) {
         t1.sortMatches();
         t2.sortMatches();
         Match[] m1 = t1.getMatches();
@@ -30,25 +31,21 @@ public class Genetic {
         for (int i = 0; i < 10; i++) {
             int k = (int) (Math.random() * n);
             Match[] new1 = new Match[n];
-            Match[] new2 = new Match[n];
 
             for (int j = 0; j < k; j++) {
                 new1[j] = m1[j];
-                new2[j] = m2[j];
             }
             for (int j = k; j < n; j++) {
-                new2[j] = m1[j];
                 new1[j] = m2[j];
             }
 
-            if (!checkHardConstraints(new1) || !checkHardConstraints(new2)) {
+            if (!checkHardConstraints(new1)) {
                 continue;
             }
             m1 = new1;
-            m2 = new2;
         }
 
-        return new Table[] { new Table(m1, t1), new Table(m2, t2) };
+        return new Table(m1, t1);
     }
 
     public boolean checkHardConstraints(Match[] matches) {
@@ -88,11 +85,10 @@ public class Genetic {
     public Match mutateMatch(Match m) {
         Match match = m.clone();
         match.setStartTime(
-                ((match.getStartTime() + (int) (Math.random() * 1440)) % 1440));
+                (match.getStartTime() + (int) (((Math.random() * 1440) % 1440) * mutateStrength)));
 
         match.setDay(
-                ((match.getDay() + (int) (Math.random() * days)) % days));
-
+                (match.getDay() + (int) (((Math.random() * days) % days) * mutateStrength)));
         return match;
     }
 
