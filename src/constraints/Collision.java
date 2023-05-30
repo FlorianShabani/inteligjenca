@@ -8,6 +8,7 @@ public class Collision extends HardConstraint {
     public boolean applyConstraint(Match[] matches) {
         for (Match m1 : matches) {
             for (Match m2 : matches) {
+                if(m1 == null || m2 == null) continue;
                 if(collide(m1, m2)) return false;
             }
         }

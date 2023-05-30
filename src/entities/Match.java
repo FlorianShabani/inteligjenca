@@ -10,7 +10,6 @@ public class Match{
     int day;
     Team t1, t2;
 
-
     public Match(int startTime, int day) {
         this.startTime = startTime;
         this.day = day;
@@ -47,7 +46,7 @@ public class Match{
     }
 
     public Match clone() {
-        return new Match(this.startTime, this.day);
+        return new Match(this.startTime, this.day, this.t1, this.t2);
     }
 
     @Override

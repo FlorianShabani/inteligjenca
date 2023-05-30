@@ -44,31 +44,35 @@ public class Genetic {
             }
             m1 = new1;
         }
-
-        return new Table(m1, t1);
+        Table t = new Table(m1, t1);
+        //System.out.println(t1 + " " + t2);
+        return t;
     }
 
     public boolean checkHardConstraints(Match[] matches) {
         for (HardConstraint hardConstraint : hardConstraints) {
-            if (!hardConstraint.evaluate(matches))
+            if (!hardConstraint.evaluate(matches)) {
                 return false;
+            }
         }
         return true;
     }
-
+    
     public void mutate(Table table) {
         // TODO Simulated Annealing
         v: for (int i = 0; i < mutateMatchCount; i++) {
+            Match[] matches = table.getMatches();
             for (int j = 0; j < 10; j++) {
-                Match[] matches = table.getMatches();
                 int randomIndex = (int) (Math.random() * matches.length);
-
+                
                 Match mut = mutateMatch(matches[randomIndex]);
                 Match old = matches[randomIndex];
-
+                
                 table.setMatch(mut, randomIndex);
+                matches[randomIndex] = mut;
 
                 if (!checkHardConstraints(matches)) {
+                    matches[randomIndex] = old;
                     table.setMatch(old, randomIndex);
                     continue;
                 } else {
@@ -79,6 +83,7 @@ public class Genetic {
     }
 
     public void evaluate(Table table) {
+        table.fitness = 0;
         for (SoftConstraint constraint : softConstraints) {
             table.applyFitness(constraint.evaluate(table.getMatches()));
         }
@@ -87,10 +92,10 @@ public class Genetic {
     public Match mutateMatch(Match m) {
         Match match = m.clone();
         match.setStartTime(
-                (match.getStartTime() + (int) (((Math.random() * 1440) % 1440) * mutateStrength)));
+                (match.getStartTime() + (int) ((Math.random() * 1440)* mutateStrength)) % 1440);
 
         match.setDay(
-                (match.getDay() + (int) (((Math.random() * days) % days) * mutateStrength)));
+                (match.getDay() + (int) ((Math.random() * days) * mutateStrength)) % days);
         return match;
     }
 

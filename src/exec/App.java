@@ -2,6 +2,8 @@ package exec;
 
 import java.util.ArrayList;
 
+import constraints.Collision;
+import constraints.TimeConstraint;
 import entities.Match;
 import entities.Population;
 import entities.Table;
@@ -17,26 +19,34 @@ public class App {
         teams.add(t1);
         teams.add(t2);
         teams.add(t3);
+        teams.add(t1);
+        teams.add(t2);
+        teams.add(t3);
+        teams.add(t1);
+        teams.add(t2);
+        teams.add(t3);
+        teams.add(t1);
+        teams.add(t2);
+        teams.add(t3);
+        teams.add(t1);
+        teams.add(t2);
+        teams.add(t3);
 
-        Match[] matches =  {
-            new Match(0, 0, t1, t2),
-            new Match(0, 0, t1, t3),
-            new Match(0, 0, t2, t3),
-        };
+        Table table = new Table(teams);
 
-        Table table = new Table(matches, teams);
-
+        
         Population p = new Population();
+        p.g.addHardConstraint(new Collision());
+        p.g.addSoftConstraint(new TimeConstraint());
+
+        table.generateMatches(p.g);
+
         p.addTable(table);
         p.addTable(table);
         //System.out.println(p.tables);
-        //p.evolve();
-
-        System.out.println(table);
-
-        p.g.mutate(table);
-        
-        System.out.println("\n"+table);
+        for(int i = 0; i < 2000; i++) {
+            p.evolve();
+        }
+        System.out.println(p);
     }
-
 }

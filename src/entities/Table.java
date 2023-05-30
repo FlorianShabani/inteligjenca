@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import utilities.Genetic;
+
 public class Table {
     public double fitness;
 
@@ -20,19 +22,23 @@ public class Table {
         this.teams = teams;
     }
 
+    public Table(ArrayList<Team> teams) {
+        this.teams = teams;
+    }
+
     public void setMatch(Match match, int i) {
         matches.set(i, match);
     }
 
     public Match[] getMatches() {
         Match[] res = new Match[matches.size()];
-        for(int i = 0; i < res.length; i++) {
+        for (int i = 0; i < res.length; i++) {
             res[i] = matches.get(i);
         }
-        return  res;
+        return res;
     }
 
-    public void applyFitness(Double fitness) {
+    public void applyFitness(double fitness) {
         this.fitness += fitness;
     }
 
@@ -55,20 +61,36 @@ public class Table {
             return 0;
         });
     }
+
     @Override
     public String toString() {
         String s = "";
-        for(Match m  : matches) {
-            s += m.startTime + " " + m.endTime + " " + m.day + "|";
+        for (Match m : matches) {
+            s += m.startTime + " " + m.endTime + " " + m.day + " " + fitness +  "|";
         }
         return s;
     }
 
-    public void generateMatches() {
-        for(int i = 0; i < teams.size(); i++) {
-            for(int j = i; j < teams.size(); j++) {
-
+    public void generateMatches(Genetic g) {
+        Match[] matches = new Match[teams.size() * teams.size()];
+        for (int i = 0; i < teams.size(); i++) {
+            for (int j = 0; j < teams.size(); j++) {
+                while (true) {
+                    int randomDay = (int) (Math.random() * Population.days);
+                    int randomStart = (int) (Math.random() * 1440);
+                    Match m = new Match(randomStart, randomDay, teams.get(i), teams.get(j));
+                    matches[i * teams.size() + j] = m;
+                    if (g.checkHardConstraints(matches)) {
+                        break;
+                    }
+                    else {
+                        matches[i * teams.size() + j] = null;
+                    }
+                }
             }
-        }   
+        }
+        System.out.println(g.checkHardConstraints(matches));
+        this.matches = new ArrayList<>(Arrays.asList(matches));
+        g.evaluate(this);
     }
 }

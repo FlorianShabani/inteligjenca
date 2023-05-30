@@ -9,8 +9,11 @@ public class Population {
     double fitnessPool;
     public Genetic g;
 
+    public static int days = 100;
+
     public Population() {
-        g = new Genetic(100);
+        g = new Genetic(days);
+        fitnessPool = 0;
         for(Table t : tables) {
             t.fitness = 0;
             g.evaluate(t);
@@ -34,7 +37,9 @@ public class Population {
 
             newGen.add(t);
         }
-        System.out.println(newGen);
+        tables = newGen;
+        updatePool();
+        System.out.println(fitnessPool);
     }
 
     public void addTable(Table table) {
@@ -62,11 +67,16 @@ public class Population {
         for(Table t : tables) {
             sum += t.getFitness();
             if(sum >= k) {
+                //System.out.println(t);
                 return t;
             }
         }
-        System.out.println("Check");
         return tables.get(tables.size() - 1);
+    }
+
+    @Override
+    public String toString() {
+        return "Population [tables=" + tables + "\n, fitnessPool=" + fitnessPool + "]";
     }
 
 

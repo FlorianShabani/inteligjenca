@@ -18,4 +18,8 @@ public class Team {
     public Match[] geMatchs() {
         return (Match[]) matches.toArray();
     }
+
+    public String toString() {
+        return name;
+    }
 }
