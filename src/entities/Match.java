@@ -7,8 +7,9 @@ public class Match{
 
     int startTime;
     int endTime;
-    int day;
-    Team t1, t2;
+    public int day;
+    public Team t1;
+    public Team t2;
 
     public Match(int startTime, int day) {
         this.startTime = startTime;

@@ -14,8 +14,8 @@ public class Genetic {
     ArrayList<HardConstraint> hardConstraints = new ArrayList<>();
     ArrayList<SoftConstraint> softConstraints = new ArrayList<>();
 
-    int mutateMatchCount = 1;
-    double mutateStrength = 1;
+    int mutateMatchCount = 2;
+    double mutateStrength = 0.3;
 
     public Genetic(int days) {
         this.days = days;
@@ -83,7 +83,8 @@ public class Genetic {
     }
 
     public void evaluate(Table table) {
-        table.fitness = 0;
+        table.fitness = 0; // Starting eval
+        table.sortMatches();
         for (SoftConstraint constraint : softConstraints) {
             table.applyFitness(constraint.evaluate(table.getMatches()));
         }

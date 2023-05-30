@@ -6,11 +6,12 @@ public class TimeConstraint extends SoftConstraint{
 
     @Override
     public double applyConstraint(Match[] matches) {
-        double res = 0;
+        double res = (840) * matches.length;
         for(Match match : matches) {
             if(match == null) continue;
-            res += Math.abs(match.getStartTime() - 1440/2);
+            res -= Math.abs(match.getStartTime() - 840); // max = 720
         }
+        System.out.println(res);
         return res;
     }
 }

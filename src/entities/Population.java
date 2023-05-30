@@ -37,6 +37,7 @@ public class Population {
 
             newGen.add(t);
         }
+        //System.out.println(newGen);
         tables = newGen;
         updatePool();
         System.out.println(fitnessPool);

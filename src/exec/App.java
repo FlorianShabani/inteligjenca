@@ -3,6 +3,8 @@ package exec;
 import java.util.ArrayList;
 
 import constraints.Collision;
+import constraints.SameDayConstraint;
+import constraints.TimeBetween;
 import constraints.TimeConstraint;
 import entities.Match;
 import entities.Population;
@@ -38,13 +40,16 @@ public class App {
         Population p = new Population();
         p.g.addHardConstraint(new Collision());
         p.g.addSoftConstraint(new TimeConstraint());
+        p.g.addSoftConstraint(new TimeBetween());
+        p.g.addHardConstraint(new SameDayConstraint());
 
         table.generateMatches(p.g);
-
+        //TODO keep best table across iterations
+        
         p.addTable(table);
         p.addTable(table);
         //System.out.println(p.tables);
-        for(int i = 0; i < 2000; i++) {
+        for(int i = 0; i < 200000; i++) {
             p.evolve();
         }
         System.out.println(p);
