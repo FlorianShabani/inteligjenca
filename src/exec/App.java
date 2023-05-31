@@ -21,7 +21,7 @@ public class App {
         Team t9 = new Team("Trepqa 89");
         Team t10 = new Team("Drenica");
         ArrayList<Team> teams = new ArrayList<Team>();
-
+        
         teams.add(t1);
         teams.add(t2);
         teams.add(t3);

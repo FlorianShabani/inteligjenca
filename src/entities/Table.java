@@ -70,7 +70,7 @@ public class Table {
         }
         return s + " " + fitness;
     }
-
+    
     public void generateMatches(Genetic g) {
         Match[] matches = new Match[teams.size() * teams.size()];
         for (int i = 0; i < teams.size(); i++) {
