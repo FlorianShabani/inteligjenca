@@ -91,5 +91,16 @@ public class Population {
         return "Population [tables=" + tables + "\n, fitnessPool=" + fitnessPool + "]";
     }
 
+    public Table getBestTable() {
+        double max = tables.get(0).getFitness();
+        Table maxT = tables.get(0);
+        for(Table t : tables) {
+            if(t.getFitness() > max) {
+                max = t.getFitness();
+                maxT = t;;
+            }
+        }
+        return maxT;
+    }
 
 }

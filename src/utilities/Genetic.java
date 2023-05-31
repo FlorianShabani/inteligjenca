@@ -62,6 +62,7 @@ public class Genetic {
         Match[] matches = table.getMatches();
         //Simulated annealing
         mutateMatchCount =  (int) (1.0 / (gen + 5) * matches.length) + 1;
+        
         v: for (int i = 0; i < mutateMatchCount; i++) {
             for (int j = 0; j < 10; j++) {
                 int randomIndex = (int) (Math.random() * matches.length);

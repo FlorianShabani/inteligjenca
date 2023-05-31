@@ -3,12 +3,9 @@ package exec;
 import java.util.ArrayList;
 
 import constraints.Collision;
-import constraints.SameDayConstraint;
 import constraints.TimeBetween;
 import constraints.TimeConstraint;
-import entities.Match;
 import entities.Population;
-import entities.Table;
 import entities.Team;
 
 public class App {
@@ -44,9 +41,10 @@ public class App {
         p.init();
 
         //System.out.println(p.tables);
-        for(int i = 0; i < 1000; i++) {
+        for(int i = 0; i < 5000; i++) {
             p.evolve(i);
         }
-        System.out.println(p.tables.get(0));
+
+     System.out.println(p.getBestTable());
     }
 }
