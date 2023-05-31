@@ -11,7 +11,6 @@ public class TimeConstraint extends SoftConstraint{
             if(match == null) continue;
             res -= Math.abs(match.getStartTime() - 840); // max = 720
         }
-        System.out.println(res);
         return res;
     }
 }

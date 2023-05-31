@@ -14,8 +14,8 @@ public class Genetic {
     ArrayList<HardConstraint> hardConstraints = new ArrayList<>();
     ArrayList<SoftConstraint> softConstraints = new ArrayList<>();
 
-    int mutateMatchCount = 2;
-    double mutateStrength = 0.3;
+    int mutateMatchCount;
+    double mutateStrength = 0.1;
 
     public Genetic(int days) {
         this.days = days;
@@ -58,16 +58,17 @@ public class Genetic {
         return true;
     }
     
-    public void mutate(Table table) {
-        // TODO Simulated Annealing
+    public void mutate(Table table, int gen) {
+        Match[] matches = table.getMatches();
+        //Simulated annealing
+        mutateMatchCount =  (int) (1.0 / (gen + 5) * matches.length) + 1;
         v: for (int i = 0; i < mutateMatchCount; i++) {
-            Match[] matches = table.getMatches();
             for (int j = 0; j < 10; j++) {
                 int randomIndex = (int) (Math.random() * matches.length);
                 
                 Match mut = mutateMatch(matches[randomIndex]);
                 Match old = matches[randomIndex];
-                
+
                 table.setMatch(mut, randomIndex);
                 matches[randomIndex] = mut;
 

@@ -58,7 +58,7 @@ public class Table {
                 return 1;
             if (m1.getStartTime() < m2.getStartTime())
                 return -1;
-            return 0;
+            return 1;
         });
     }
 
@@ -66,9 +66,9 @@ public class Table {
     public String toString() {
         String s = "";
         for (Match m : matches) {
-            s += m.startTime + " " + m.endTime + " " + m.day + " " + fitness +  "|";
+            s += m.startTime + " " + m.day + "|";
         }
-        return s;
+        return s + " " + fitness;
     }
 
     public void generateMatches(Genetic g) {
@@ -89,7 +89,6 @@ public class Table {
                 }
             }
         }
-        System.out.println(g.checkHardConstraints(matches));
         this.matches = new ArrayList<>(Arrays.asList(matches));
         g.evaluate(this);
     }
